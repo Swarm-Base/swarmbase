@@ -19,7 +19,7 @@ $SWARM is the native utility token of the SwarmBase protocol, deployed as a **BE
 
 At TGE, 20% of all platform fees are permanently burned, creating deflationary pressure.
 
-> **Chain note:** The $SWARM token production deployment is on **BSC**. The pre-TGE SwarmToken deployment on opBNB Mainnet (ChainId 204) exists solely for community engagement testing and will not be the live token. SwarmCore and SwarmBadge remain on opBNB as the pre-TGE engagement layer.
+> **Chain note:** The $SWARM token production deployment is on **BSC**. The pre-TGE SwarmToken deployment on opBNB Mainnet (ChainId 204) is a pre-TGE deploy and will not be the live token. SwarmCore and SwarmBadge remain on opBNB as the pre-TGE engagement layer.
 
 ## How the Engagement Layer Works
 
