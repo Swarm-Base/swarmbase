@@ -9,7 +9,7 @@
 - [x] SwarmCore deployed on opBNB Mainnet — on-chain registration, daily check-ins, streak scoring, referral tracking
 - [x] SwarmBadge deployed on opBNB Mainnet — soulbound Pioneer, Builder, and OG NFT badges
 - [x] SwarmToken pre-TGE deploy on opBNB Mainnet
-- [x] core.swarmbase.io platform live — agent deployment and community hub
+- [x] core.swarmbase.io live — agent deployment and community hub
 - [x] core.swarmbase.io/points live — real-time swarmScore leaderboard and engagement portal
 - [x] 100-wallet on-chain simulation completed — 4-tier referral tree, diverse engagement profiles, auditor-presentable transaction history
 - [x] All contracts source-verified on opBNBscan
