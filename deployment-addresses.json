@@ -1,13 +1,14 @@
 {
   "network": "opBNB Mainnet",
   "chainId": 204,
-  "deployer": "0x54f3A4e15f1ff2A8e0B21a12d46e108522b91881",
-  "deployedAt": "2026-04-04T19:17:58.137Z",
+  "status": "live",
+  "deployer": "0x2091d2c7736e30545F292C1536e45B4f41F1a407",
+  "owner": "0x26eFA122d6f3bFe97A946768eeCb49379A953121",
+  "deployedAt": "2026-04-14T00:00:00.000Z",
   "contracts": {
-    "SwarmCore": "0x333628c9e0C3B300558C1a998534001A31F12314",
-    "SwarmBadge": "0xD84296141E1BD55F2B57A5fA62c8254eFbCED08c",
-    "Vesting": "Team.Finance",
-    "Airdrop": "Gnosis Safe \u2014 TGE discretionary"
+    "SwarmCore": "0x01f9Eb284F94b54CF0854ef3B6FeF69C10babe0C",
+    "SwarmBadge": "0x6f7Cb024E5B285A9E7eE1b9D31e864e9d2B36627"
   },
-  "note": "SwarmToken ($SWARM) deploys on BSC at TGE \u2014 not included here. SwarmCore and SwarmBadge are the pre-TGE engagement layer on opBNB."
+  "verified": true,
+  "note": "SwarmToken ($SWARM) deploys on BSC at TGE. Both contracts owned by Gnosis Safe multisig."
 }
