@@ -1,0 +1,13 @@
+{
+  "network": "opBNB Mainnet",
+  "chainId": 204,
+  "deployer": "0x54f3A4e15f1ff2A8e0B21a12d46e108522b91881",
+  "deployedAt": "2026-04-04T19:17:58.137Z",
+  "contracts": {
+    "SwarmToken": "0x5B0fdb169Caba66b16C06A1B2D655993114e6458",
+    "SwarmCore": "0x333628c9e0C3B300558C1a998534001A31F12314",
+    "SwarmBadge": "0xD84296141E1BD55F2B57A5fA62c8254eFbCED08c",
+    "Vesting": "Team.Finance",
+    "Airdrop": "Gnosis Safe — TGE discretionary"
+  }
+}
