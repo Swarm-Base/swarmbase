@@ -1,32 +1,58 @@
 # SwarmBase
 
-> The on-chain community intelligence layer for Web3.
+> The cognitive backbone of agentic swarms.
 
-SwarmBase rewards real community participation — not bots, not airdrop farmers. Every action is verified on-chain, every score is transparent, every badge is earned.
-
----
-
-## What is SwarmBase?
-
-SwarmBase is a points-and-reputation system built on opBNB. Projects use SwarmBase to identify, reward, and retain their most committed community members — with soulbound NFT badges, verifiable on-chain scores, and a referral graph that surfaces genuine influence.
+SwarmBase is a Web3 protocol providing AI agent infrastructure and compute orchestration on BNB Chain. The protocol enables businesses and developers to deploy, coordinate, and monetise AI agent swarms entirely on-chain — with verifiable inference, transparent compute markets, and a native token economy.
 
 ---
 
-## Core Contracts
+## Protocol
 
-| Contract | Network | Address |
+SwarmBase provides the infrastructure layer for on-chain AI agent coordination:
+
+- **Agent swarm orchestration** — deploy and coordinate multi-agent AI systems on-chain
+- **Verifiable compute** — every inference and action is provable and auditable
+- **Compute marketplace** — permissionless market for AI compute tasks
+- **$SWARM token economy** — pay for compute, stake for governance, access premium capabilities
+
+Full technical specification: [swarmbase.io/whitepaper](https://swarmbase.io/whitepaper)
+
+---
+
+## Pre-TGE Phase — Community Engagement Layer
+
+The contracts in this repository represent the **pre-TGE phase only** — a community-building mechanism that runs before the $SWARM token launches. This is not the core protocol. Its purpose is to:
+
+1. Build a verified on-chain record of early community participation
+2. Create a fair, sybil-resistant basis for the initial $SWARM airdrop
+3. Demonstrate real user engagement to exchanges and investors ahead of TGE
+
+### Contracts (opBNB Mainnet)
+
+| Contract | Purpose | Address |
 |---|---|---|
-| SwarmCore | opBNB | *TBA — pre-TGE deploy* |
-| SwarmBadge | opBNB | *TBA — pre-TGE deploy* |
-| SwarmToken | BSC | *TBA — TGE* |
+| **SwarmCore** | Records participation — registrations, daily check-ins, referral graph, SwarmScore | *TBA — deploying soon* |
+| **SwarmBadge** | Soulbound NFT badges awarded at SwarmScore milestones | *TBA — deploying soon* |
 
-Smart contract source code and audit reports: [github.com/Swarm-Base/contracts](https://github.com/Swarm-Base/contracts)
+> **SwarmToken ($SWARM)** deploys on **BSC** at TGE — not part of the pre-TGE phase.
 
----
+### SwarmScore
 
-## NFT Badges
+Every on-chain action earns SwarmScore — the sybil-resistant signal used to determine airdrop eligibility.
 
-Three soulbound badges — non-transferable, earned, permanent.
+| Action | Points |
+|---|---|
+| Register | 100 |
+| Daily check-in | 10 |
+| 7-day streak bonus | 50 |
+| 30-day streak bonus | 200 |
+| Referral (direct) | 150 |
+| Referral (depth 2) | 75 |
+| Referral (depth 3) | 25 |
+
+### NFT Badges
+
+Three soulbound (non-transferable) badges — permanent proof of early participation.
 
 | Badge | Requirement | Supply |
 |---|---|---|
@@ -36,40 +62,16 @@ Three soulbound badges — non-transferable, earned, permanent.
 
 Badge metadata and images: [github.com/Swarm-Base/nft-metadata](https://github.com/Swarm-Base/nft-metadata)
 
-Preview:
-- `images/1.svg` — Pioneer
-- `images/2.svg` — Builder  
-- `images/3.svg` — OG
-
 ---
 
-## SwarmScore
+## $SWARM Token
 
-SwarmScore is your on-chain reputation within the SwarmBase ecosystem.
+$SWARM launches on BNB Smart Chain (BSC) at TGE.
 
-| Action | Points |
-|---|---|
-| Register | 100 |
-| Daily check-in | 10 |
-| Streak bonus (7-day) | 50 |
-| Streak bonus (30-day) | 200 |
-| Referral (direct) | 150 |
-| Referral (depth 2) | 75 |
-| Referral (depth 3) | 25 |
-
-Scores are stored on SwarmCore and used as the eligibility source for badge minting.
-
----
-
-## Token — SwarmToken (SWM)
-
-SwarmToken launches on BSC at TGE. It is not deployed yet.
-
-- **Total supply:** 1,000,000,000 SWM (fixed, no mint)
-- **Burn:** 20% of protocol fees burned via `burnFees()` 
-- **Utility:** governance, fee payment, staking, badge unlocks
-
-Full tokenomics in the [whitepaper](https://swarmbase.io/whitepaper).
+- **Total supply:** 1,000,000,000 (fixed, no mint function)
+- **Utility:** compute payments, governance staking, premium agent access
+- **Burn:** 20% of all platform fees permanently burned
+- **Distribution:** community airdrop based on pre-TGE SwarmScore snapshot
 
 ---
 
@@ -82,15 +84,9 @@ Full tokenomics in the [whitepaper](https://swarmbase.io/whitepaper).
 | Whitepaper | [swarmbase.io/whitepaper](https://swarmbase.io/whitepaper) |
 | Twitter / X | [x.com/SwarmBase](https://x.com/SwarmBase) |
 | Telegram | [t.me/Swarm_Base](https://t.me/Swarm_Base) |
-| Contracts repo | [github.com/Swarm-Base/contracts](https://github.com/Swarm-Base/contracts) |
+| Smart Contracts | [github.com/Swarm-Base/contracts](https://github.com/Swarm-Base/contracts) |
 | NFT Metadata | [github.com/Swarm-Base/nft-metadata](https://github.com/Swarm-Base/nft-metadata) |
 
 ---
 
-## Security
-
-SwarmBadges are soulbound (non-transferable). SwarmCore ownership is held by a Gnosis Safe multisig post-deploy. All contracts have been audited prior to deployment.
-
----
-
-*Built on opBNB. Tokens on BSC. Powered by the community.*
+*opBNB for the pre-TGE engagement layer. BSC for $SWARM at TGE.*
