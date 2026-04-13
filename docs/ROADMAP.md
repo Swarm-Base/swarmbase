@@ -18,7 +18,7 @@
 ### Audit & Compliance
 - [x] Full test suite — 38/38 passing, zero compiler warnings
 - [x] Audit package prepared — SwarmToken, SwarmCore, SwarmBadge
-- [ ] Third-party smart contract audit (Trail of Bits / OpenZeppelin / CertiK) — in progress
+- [ ] Smart contract audit — completed by Hashlock
 - [ ] DappBay listing submission (post-audit)
 - [ ] opBNBscan contract verification for all 3 contracts — complete
 
@@ -49,7 +49,7 @@
 ### Listings & Visibility
 - [ ] BscScan contract verification for SwarmToken on BSC
 - [ ] DappBay listing live
-- [x] GitHub repository published (github.com/Swarm-Base/swarmbase)
+- [ ] GitHub repository published (post-audit)
 - [ ] Bug bounty program launched
 
 ---
