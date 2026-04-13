@@ -6,7 +6,7 @@
     "compile": "hardhat compile",
     "deploy:opbnb": "hardhat run deploy.js --network opbnb",
     "deploy:bsc": "hardhat run scripts/deploy.js --network bsc",
-    "deploy:testnet": "hardhat run deploy.js --network opbnbTestnet",
+    "deploy:staging": "hardhat run deploy.js --network opbnbStaging",
     "test": "hardhat test"
   },
   "devDependencies": {
