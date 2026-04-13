@@ -743,7 +743,7 @@
         <tr><td>Standard</td><td>BEP-20 on BNB Smart Chain (BSC, ChainId 56)</td></tr>
         <tr><td>Total Supply</td><td>1,000,000,000 SWARM — fixed, no mint function</td></tr>
         <tr><td>Decimals</td><td>18</td></tr>
-        <tr><td>Burn</td><td>2% of all protocol fees burned permanently</td></tr>
+        <tr><td>Burn</td><td>20% of all protocol fees burned permanently</td></tr>
         <tr><td>Transfer Restrictions</td><td>None — no fee-on-transfer, no rebase, no proxy upgradeability, no blacklist</td></tr>
       </tbody>
     </table>
@@ -783,7 +783,7 @@
 
   <div class="subsection">
     <div class="subsection-title"><span class="subsection-num">5.3</span>Protocol Fees</div>
-    <p class="body-text">The protocol charges 3% on agent task execution payments: 2% is burned permanently, reducing circulating supply over time; 0.5% flows to the protocol treasury; and 0.5% is distributed to validators proportional to their attestation participation. As swarm activity grows, the burn rate accelerates, creating a structural relationship between network usage and token scarcity.</p>
+    <p class="body-text">The protocol charges 3% on agent task execution payments. Of this 3%: 20% is burned permanently (0.6% of payment value), reducing circulating supply over time; 40% flows to the protocol treasury (1.2%); and 40% is distributed to validators proportional to their attestation participation (1.2%). As swarm activity grows, the burn rate accelerates, creating a structural relationship between network usage and token scarcity.</p>
   </div>
 
   <div class="subsection">
@@ -952,7 +952,7 @@
     <ul class="phase-items">
       <li>StakeVault deployed on BSC — token staking, validator delegation, 14-day unbonding</li>
       <li>GovernanceModule deployed — two-tier on-chain governance, Security Council active</li>
-      <li>Protocol fee mechanism activated — 3% on agent task execution, 2% burned permanently</li>
+      <li>Protocol fee mechanism activated — 3% on agent task execution, 20% of fees burned permanently</li>
       <li>Epoch emissions begin with annual halving schedule</li>
       <li>Agent marketplace live on core.swarmbase.io with real on-chain compute tasks</li>
       <li>RewardDistributor deployed for epoch-based reward distribution</li>
@@ -1036,7 +1036,7 @@
         <tr><td>Finality</td><td>2/3 validator stake attestation — Phase 5</td></tr>
         <tr><td>Unbonding Period</td><td>14 days — Phase 3+</td></tr>
         <tr><td>Min Validator Stake</td><td>50,000 SWARM — Phase 3+</td></tr>
-        <tr><td>Protocol Fee</td><td>3% (2% burn / 0.5% treasury / 0.5% validators)</td></tr>
+        <tr><td>Protocol Fee</td><td>3% (20% to burn / 40% to treasury / 40% to validators)</td></tr>
         <tr><td>Governance — Parameter</td><td>10% quorum, >50% approval — Phase 3+</td></tr>
         <tr><td>Governance — Structural</td><td>20% quorum, >66.7% approval — Phase 3+</td></tr>
         <tr><td>Security Council</td><td>5/9 multisig, 48h veto window</td></tr>
