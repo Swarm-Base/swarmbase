@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity 0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
@@ -11,8 +11,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  * @dev BEP-20 compatible. 1B total supply. Deflationary (20% fee burn).
  * @dev Tokenomics: swarmbase.io/tokenomics
  * @dev Chain: BNB Smart Chain (BSC) — production TGE deployment.
- *      A pre-TGE deploy exists on opBNB Mainnet as the community engagement layer.
- *      The production $SWARM token is deployed on BSC (ChainId 56) at TGE.
+ *      The current pre-TGE deployment on opBNB Mainnet is for testing and
+ *      community engagement purposes only. The production $SWARM token will
+ *      be deployed on BSC (ChainId 56) at TGE.
  *
  * Distribution:
  *   20% — Community (200M)       2% at TGE, 1mo cliff, 24mo vest
@@ -70,6 +71,8 @@ contract SwarmToken is ERC20, ERC20Burnable, Ownable {
 
     // Distribution tracking
     bool public distributed;
+    // L-06: prevents setWallets() from being called more than once
+    bool public walletsSet;
 
     // ─── EVENTS ────────────────────────────────────────────────────────────
 
@@ -78,13 +81,37 @@ contract SwarmToken is ERC20, ERC20Burnable, Ownable {
     event FeesBurned(uint256 amount, uint256 totalBurned);
     event WalletUpdated(string walletType, address oldWallet, address newWallet);
     event TokensDistributed(uint256 timestamp);
+    // L-05: emitted when wallets are configured
+    event WalletsSet(
+        address community,
+        address team,
+        address ecosystem,
+        address marketing,
+        address strategicRound,
+        address treasury,
+        address liquidity,
+        address reserve,
+        address strategicPartners
+    );
 
     // ─── CONSTRUCTOR ───────────────────────────────────────────────────────
 
+    /**
+     * @notice Deploy SwarmToken. All 1B SWARM are minted to _owner (Gnosis Safe).
+     * @dev M-01 FIX (complete):
+     *      1. _owner MUST be a Gnosis Safe multisig — tokens mint directly to it.
+     *      2. Contract ownership intentionally stays with the deployer EOA at
+     *         construction so that deploy.js can call setSwarmCore() in the same
+     *         script. deploy.js MUST call token.transferOwnership(GNOSIS_SAFE)
+     *         as its final step — verified in deployment output.
+     *      Production Safe (BSC): 0x26eFA122d6f3bFe97A946768eeCb49379A953121
+     */
     constructor(address _owner) ERC20("SwarmBase", "SWARM") Ownable() {
-        // Mint full supply to owner for distribution
+        require(_owner != address(0), "Invalid owner");
         _mint(_owner, TOTAL_SUPPLY);
-        _transferOwnership(_owner);
+        // NOTE: ownership stays with deployer EOA so deploy script can call
+        // setSwarmCore() before handing ownership to the multisig.
+        // deploy.js calls token.transferOwnership(GNOSIS_SAFE) as its final step.
     }
 
     // ─── SWARMCORE LINK ────────────────────────────────────────────────────
@@ -126,6 +153,7 @@ contract SwarmToken is ERC20, ERC20Burnable, Ownable {
         address _reserve,
         address _strategicPartners
     ) external onlyOwner {
+        require(!walletsSet,               "L-06: Wallets already set");  // L-06
         require(!distributed,              "Already distributed");
         require(_community         != address(0), "Invalid community wallet");
         require(_team              != address(0), "Invalid team wallet");
@@ -145,6 +173,11 @@ contract SwarmToken is ERC20, ERC20Burnable, Ownable {
         liquidityWallet         = _liquidity;
         reserveWallet           = _reserve;
         strategicPartnersWallet = _strategicPartners;
+        walletsSet = true;  // L-06: one-time lock
+        emit WalletsSet(    // L-05: emit event
+            _community, _team, _ecosystem, _marketing,
+            _strategicRound, _treasury, _liquidity, _reserve, _strategicPartners
+        );
     }
 
     /**
@@ -226,11 +259,6 @@ contract SwarmToken is ERC20, ERC20Burnable, Ownable {
     }
 
     // ─── ADMIN ─────────────────────────────────────────────────────────────
-
-    /// @dev Reject accidental BNB/ETH sends — no native currency accepted
-    receive() external payable {
-        revert("SwarmToken: no native currency accepted");
-    }
 
     /**
      * @notice Update a wallet address (before distribution only)
