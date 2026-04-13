@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity 0.8.24;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -74,7 +74,7 @@ contract SwarmBadge is ERC1155, Ownable, ReentrancyGuard {
     bool   public mintingPaused;
     string public name   = "SwarmBase Badge";
     string public symbol = "SWARM-BADGE";
-    string private _baseURI;
+    // L-02: _baseURI removed — URI stored exclusively via OZ _setURI() / _uri
 
     // ─── EVENTS ────────────────────────────────────────────────────────────
 
@@ -91,13 +91,12 @@ contract SwarmBadge is ERC1155, Ownable, ReentrancyGuard {
      * @param baseURI_    Base URI for badge metadata (e.g. ipfs://...)
      */
     constructor(address _swarmCore, string memory baseURI_)
-        ERC1155(baseURI_)
+        ERC1155(baseURI_)  // L-02: calls _setURI(baseURI_) internally — no duplicate storage
         Ownable()
         ReentrancyGuard()
     {
         require(_swarmCore != address(0), "Invalid SwarmCore address");
         swarmCore = ISwarmCore(_swarmCore);
-        _baseURI  = baseURI_;
     }
 
     // ─── SOULBOUND ─────────────────────────────────────────────────────────
@@ -118,10 +117,20 @@ contract SwarmBadge is ERC1155, Ownable, ReentrancyGuard {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
 
+    /**
+     * @dev L-01: Block setApprovalForAll — approvals are meaningless on a soulbound token
+     *      since transfers are already blocked. Disabling prevents misleading state.
+     */
+    function setApprovalForAll(address, bool) public pure override {
+        revert("SwarmBadge: soulbound, approvals disabled");
+    }
+
     // ─── MINT MODIFIER ─────────────────────────────────────────────────────
 
     modifier mintable() {
         require(!mintingPaused, "SwarmNFT: minting paused");
+        // L-03: prevent minting while SwarmCore address is still mutable
+        require(swarmCoreLocked, "SwarmBadge: lock SwarmCore before minting");
         _;
     }
 
@@ -226,9 +235,10 @@ contract SwarmBadge is ERC1155, Ownable, ReentrancyGuard {
     /**
      * @notice Get URI for token metadata
      */
+    // L-02: reads from OZ _uri via super.uri() — no separate _baseURI needed
     function uri(uint256 tokenId) public view override returns (string memory) {
         require(tokenId >= PIONEER && tokenId <= OG, "SwarmNFT: invalid token ID");
-        return string(abi.encodePacked(_baseURI, tokenId.toString(), ".json"));
+        return string(abi.encodePacked(super.uri(tokenId), tokenId.toString(), ".json"));
     }
 
     // ─── ADMIN ─────────────────────────────────────────────────────────────
@@ -260,9 +270,11 @@ contract SwarmBadge is ERC1155, Ownable, ReentrancyGuard {
 
     /**
      * @notice Set base URI for metadata
+     * @dev L-02: uses _setURI() for storage and emits EIP-1155 URI event
      */
     function setBaseURI(string memory newURI) external onlyOwner {
-        _baseURI = newURI;
+        _setURI(newURI);
+        emit URI(newURI, 0);  // EIP-1155 standard URI event (id=0 signals base URI change)
         emit BaseURIUpdated(newURI);
     }
 
