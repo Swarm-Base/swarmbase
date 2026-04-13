@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity 0.8.24;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -149,7 +149,8 @@ contract SwarmCore is Ownable {
 
         uint256 streak = hiveStreak[msg.sender];
 
-        // Reset if missed >48h
+        // Reset if missed >48h (L-04: this also fires if contract was paused >48h —
+        // see pause() NatSpec for operator guidance)
         if (
             lastHiveCheckIn[msg.sender] > 0 &&
             block.timestamp > lastHiveCheckIn[msg.sender] + 172800
@@ -230,6 +231,15 @@ contract SwarmCore is Ownable {
         revert("SwarmCore: renounce disabled");
     }
 
+    /**
+     * @notice Pause all state-writing functions.
+     * @dev L-04 WARNING: If the contract remains paused for more than 48 hours,
+     *      users who had active streaks will have those streaks silently reset
+     *      when they next check in (the >48h reset window will have elapsed).
+     *      This is by design — streaks require daily consistency — but operators
+     *      should be aware and communicate extended pauses to the community.
+     *      Consider unpause timing carefully to avoid penalising active users.
+     */
     function pause() external onlyOwner {
         require(!paused, "Already paused");
         paused = true;
