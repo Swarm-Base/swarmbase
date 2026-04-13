@@ -5,7 +5,7 @@
  *   - SwarmCore + SwarmBadge → opBNB Mainnet (ChainId 204) — pre-TGE engagement layer
  *   - SwarmToken ($SWARM)    → BNB Smart Chain (ChainId 56)  — production TGE token
  *
- * This script deploys all three to the same network for pre-TGE testing.
+ * This script deploys all three to the same network for the pre-TGE phase.
  * At TGE, SwarmToken must be redeployed on BSC separately.
  *
  * Deployment Order:
@@ -57,7 +57,7 @@ async function main() {
   // ─── 3. SWARM BADGE ──────────────────────────────────────────────────────
 
   console.log("\n3. Deploying SwarmBadge...");
-  const baseURI = "ipfs://YOUR_IPFS_CID/"; // Replace with actual IPFS CID before deploy
+  const baseURI = "https://swarm-base.github.io/nft-metadata/"; // NFT metadata hosted on GitHub Pages
   const SwarmNFT = await ethers.getContractFactory("SwarmBadge");
   const nft = await SwarmNFT.deploy(core.target, baseURI);
   await nft.waitForDeployment();
