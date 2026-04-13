@@ -26,7 +26,7 @@ module.exports = {
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       gasPrice: "auto",
     },
-    opbnbTestnet: {
+    opbnbStaging: {
       url: "https://opbnb-testnet-rpc.bnbchain.org:8545",
       chainId: 5611,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
@@ -35,7 +35,7 @@ module.exports = {
   },
   paths: {
     sources: "./contracts",
-    tests: "./test",
+    tests: "./spec",
     artifacts: "./artifacts",
     cache: "./cache",
   },
