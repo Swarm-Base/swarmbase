@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwarmBase — Technical Whitepaper v1.4</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: #ffffff;
+    color: #1a1a1a;
+    font-size: 13px;
+    line-height: 1.85;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 70px;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 96vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 60px;
+    margin-bottom: 0;
+    page-break-after: always;
+  }
+
+  .cover-tag {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #55d532;
+    margin-bottom: 28px;
+  }
+
+  .cover-bar {
+    width: 56px;
+    height: 3px;
+    background: #55d532;
+    margin-bottom: 28px;
+    border-radius: 2px;
+  }
+
+  .cover-title {
+    font-size: 52px;
+    font-weight: 800;
+    font-family: 'Arial', sans-serif;
+    color: #0a0a0a;
+    line-height: 1.05;
+    margin-bottom: 14px;
+    letter-spacing: -1px;
+  }
+
+  .cover-sub {
+    font-size: 18px;
+    color: #666;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 52px;
+    font-weight: 400;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .meta-label {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 4px;
+  }
+
+  .meta-value {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #222;
+    font-weight: 600;
+  }
+
+  .cover-notice {
+    background: #f8fdf6;
+    border: 1px solid #d4edcc;
+    border-left: 4px solid #55d532;
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    max-width: 580px;
+  }
+
+  .cover-notice-label {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #55d532;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .cover-notice p {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.7;
+    font-family: 'Arial', sans-serif;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 52px 0 24px;
+    padding-top: 8px;
+  }
+
+  .section-num {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: #55d532;
+    letter-spacing: 2px;
+    min-width: 30px;
+    font-weight: 700;
+  }
+
+  .section-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 21px;
+    font-weight: 800;
+    color: #0a0a0a;
+    letter-spacing: -0.3px;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: #e8e8e8;
+  }
+
+  /* ── SUBSECTIONS ── */
+  .subsection {
+    margin: 32px 0 16px;
+  }
+
+  .subsection-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+
+  .subsection-num {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: #55d532;
+    letter-spacing: 1px;
+    margin-right: 8px;
+  }
+
+  /* ── BODY TEXT ── */
+  .body-text {
+    font-size: 13.5px;
+    line-height: 1.9;
+    color: #333;
+    font-family: 'Georgia', serif;
+    margin-bottom: 16px;
+  }
+
+  .body-text strong {
+    color: #0a0a0a;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  /* ── CALLOUT BOXES ── */
+  .callout-planned {
+    border-left: 3px solid #55d532;
+    background: #f8fdf6;
+    padding: 14px 20px;
+    margin: 6px 0 24px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .callout-planned-label {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #55d532;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+
+  .callout-planned p {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.65;
+    font-family: 'Arial', sans-serif;
+  }
+
+  .callout-live {
+    border-left: 3px solid #10b981;
+    background: #f0fdf8;
+    padding: 14px 20px;
+    margin: 6px 0 24px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .callout-live-label {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #10b981;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+
+  .callout-live p {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.65;
+    font-family: 'Arial', sans-serif;
+  }
+
+  .callout-note {
+    border-left: 3px solid #ddd;
+    background: #fafafa;
+    padding: 14px 20px;
+    margin: 6px 0 24px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .callout-note-label {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #999;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+
+  .callout-note p {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.65;
+    font-family: 'Arial', sans-serif;
+  }
+
+  /* ── TABLES ── */
+  .table-wrap {
+    margin: 16px 0 28px;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  thead tr {
+    background: #f5f5f5;
+  }
+
+  thead th {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e8e8e8;
+    font-weight: 700;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  tbody tr:nth-child(even) {
+    background: #fafafa;
+  }
+
+  tbody td {
+    padding: 10px 14px;
+    color: #444;
+    line-height: 1.5;
+    font-family: 'Arial', sans-serif;
+    font-size: 12.5px;
+    vertical-align: top;
+  }
+
+  tbody td:first-child {
+    color: #111;
+    font-family: 'Courier New', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+  }
+
+  .badge-live {
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    color: #10b981;
+    background: #f0fdf8;
+    border: 1px solid #a7f3d0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .badge-planned {
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    color: #55d532;
+    background: #f8fdf6;
+    border: 1px solid #bbf7a0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  /* ── SPECS TABLE ── */
+  .specs-table tbody td:first-child {
+    color: #666;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: 400;
+  }
+
+  .specs-table tbody td:last-child {
+    color: #222;
+    font-family: 'Georgia', serif;
+    font-size: 13px;
+  }
+
+  /* ── SLASH TABLE ── */
+  .slash-table tbody td:nth-child(2) {
+    color: #dc2626;
+    font-family: 'Courier New', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+  }
+
+  /* ── ROADMAP ── */
+  .phase-block {
+    margin-bottom: 36px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: #f8fdf6;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .phase-tag {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #55d532;
+    font-weight: 700;
+    min-width: 76px;
+  }
+
+  .phase-name {
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: #0a0a0a;
+  }
+
+  .phase-live-badge {
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    color: #10b981;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .phase-date {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: #bbb;
+    margin-left: auto;
+  }
+
+  .phase-items {
+    list-style: none;
+    padding: 16px 20px;
+  }
+
+  .phase-items li {
+    font-size: 12.5px;
+    color: #555;
+    padding: 4px 0 4px 20px;
+    position: relative;
+    line-height: 1.6;
+    font-family: 'Arial', sans-serif;
+  }
+
+  .phase-items li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: #55d532;
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 700;
+  }
+
+  .phase-items li.done {
+    color: #3a7a3a;
+  }
+
+  .phase-items li.done::before {
+    content: '✓';
+    color: #10b981;
+    font-size: 11px;
+    top: 5px;
+  }
+
+  /* ── FLOW CONTROL ── */
+  .body-text {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .subsection {
+    page-break-inside: avoid;
+  }
+
+  .section-header {
+    page-break-after: avoid;
+  }
+
+  .subsection-title {
+    page-break-after: avoid;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: #f0f0f0;
+    margin: 40px 0;
+  }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: #bbb;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .footer-brand span {
+    color: #55d532;
+  }
+
+  .footer-note {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: #bbb;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .cover { page-break-after: always; min-height: auto; padding-bottom: 40px; }
+    .section-header { page-break-after: avoid; page-break-inside: avoid; }
+    .subsection-title { page-break-after: avoid; }
+    .subsection { page-break-inside: avoid; }
+    .phase-block { page-break-inside: avoid; }
+    table { page-break-inside: avoid; }
+    .callout-planned, .callout-live, .callout-note { page-break-inside: avoid; }
+    p { orphans: 3; widows: 3; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════════════════ COVER ═══════════════════ -->
+  <div class="cover">
+    <div class="cover-tag">Technical Whitepaper — v1.4</div>
+    <div class="cover-bar"></div>
+    <div class="cover-title">SWARMBASE</div>
+    <div class="cover-sub">The Infrastructure Layer for Autonomous Agent Swarms</div>
+    <div class="cover-meta">
+      <div>
+        <div class="meta-label">Published</div>
+        <div class="meta-value">April 2026</div>
+      </div>
+      <div>
+        <div class="meta-label">Version</div>
+        <div class="meta-value">1.4</div>
+      </div>
+      <div>
+        <div class="meta-label">Classification</div>
+        <div class="meta-value">Public</div>
+      </div>
+      <div>
+        <div class="meta-label">Platform</div>
+        <div class="meta-value">core.swarmbase.io</div>
+      </div>
+    </div>
+    <div class="cover-notice">
+      <div class="cover-notice-label">Important Notice</div>
+      <p>This whitepaper does not constitute investment advice or an offer of securities. SwarmBase is under active development. Protocol components described as planned or phased are subject to change. Nothing herein constitutes a guarantee of future performance or delivery timelines.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ ABSTRACT ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">00</span>
+    <span class="section-title">Abstract</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <p class="body-text">Single agent architectures have reached their ceiling. A single model operating in isolation lacks the depth of reasoning, the breadth of capability, and the fault tolerance required for complex real world tasks. The future of autonomous AI is not a better single agent. It is coordinated swarms of specialized agents, each contributing domain expertise, collaborating on shared objectives, and producing outputs that no individual agent could achieve alone.</p>
+  <p class="body-text">SwarmBase is the infrastructure layer that makes this possible on chain. Built natively on BNB Chain, SwarmBase provides the coordination, verification, and economic framework for deploying, orchestrating, and monetizing autonomous agent swarms at scale. The protocol operates at <strong>core.swarmbase.io</strong>, with a pre-TGE contributor points system live at <strong>core.swarmbase.io/points</strong>.</p>
+  <p class="body-text">This whitepaper presents the technical architecture, consensus design, cryptographic verification pipeline, tokenomics, and governance framework of the SwarmBase protocol.</p>
+
+  
+
+  <!-- ═══════════════════ SECTION 1 ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">The Swarm Thesis</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">1.1</span>The Limits of Single Agent Models</div>
+    <p class="body-text">The dominant paradigm in AI deployment today is the single agent model: one model, one context window, one set of capabilities, one task at a time. This architecture is fundamentally constrained in three dimensions.</p>
+    <p class="body-text"><strong>Reasoning depth.</strong> A single model is bounded by its training distribution and context limits. It cannot decompose a complex problem into subtasks, delegate those subtasks to specialists, and then synthesize the results. As task complexity increases, single agent performance degrades predictably.</p>
+    <p class="body-text"><strong>Capability breadth.</strong> No single model excels at everything. A model trained for code generation is suboptimal for market analysis. A model tuned for natural language reasoning may fail at structured data extraction. The single agent paradigm forces users to choose between specialized performance and general coverage, with no way to achieve both simultaneously.</p>
+    <p class="body-text"><strong>Scalability.</strong> Single agent architectures do not scale horizontally. There is no mechanism for distributing cognitive load across a network of cooperating agents, each absorbing a fraction of the total workload.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">1.2</span>Swarms as the Native Architecture for Complex AI Work</div>
+    <p class="body-text">A swarm is a coordinated set of specialized agents operating as a unified system. Each agent in a swarm is purpose built for a specific capability domain. A research agent retrieves and synthesizes information. An analysis agent processes structured data. A strategy agent generates recommendations. A verification agent audits outputs from other agents. These specialists are composed into directed workflows where the output of one agent feeds the input of the next, and the swarm produces results that exceed the capacity of any individual member.</p>
+    <p class="body-text">The implications are significant. A swarm of five specialized 7B parameter agents, each operating in its domain of expertise, consistently outperforms a single 70B parameter generalist on complex multi-step tasks. The swarm is cheaper to run, faster to execute, and more resilient to individual component failures. When one agent fails or produces low quality output, the swarm can reroute, retry, or substitute without collapsing the entire workflow.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">1.3</span>Why Swarms Require Decentralized Infrastructure</div>
+    <p class="body-text">Running swarms on centralized infrastructure recreates the same bottlenecks and trust dependencies that blockchain was designed to eliminate. A centralized swarm operator controls which agents participate, which tasks are routed where, and whether outputs are legitimate. There is no independent verification, no economic accountability, and no permissionless access.</p>
+    <p class="body-text">SwarmBase decentralizes every layer of the swarm stack. Agent operators are independent participants who stake economic value against the quality of their work. Task routing is governed by on-chain logic, not a centralized dispatcher. Outputs are cryptographically verified through hardware attestation and, in the future, zero knowledge proofs. Economic rewards flow automatically to agents and validators based on measurable contributions.</p>
+  </div>
+
+  
+
+  <!-- ═══════════════════ SECTION 2 ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-title">Protocol Architecture</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">2.1</span>Chain Architecture</div>
+    <p class="body-text">SwarmBase is built natively on BNB Chain, leveraging both opBNB Mainnet and BNB Smart Chain (BSC) in a dual layer architecture optimized for the distinct requirements of agent execution and economic settlement.</p>
+    <div class="callout-note">
+      <div class="callout-note-label">Chain Reference</div>
+      <p>The production $SWARM token is a BEP-20 deployment on BNB Smart Chain (BSC, ChainId 56), deployed fresh at TGE. Pre-TGE engagement contracts (SwarmCore, SwarmBadge) are deployed on opBNB Mainnet (ChainId 204) permanently. A test deployment of SwarmToken exists on opBNB for pre-TGE testing only and is not the production token.</p>
+    </div>
+    <p class="body-text">The <strong>opBNB execution layer</strong> handles all high frequency operations: agent task processing, inter-agent messaging, state transitions, and coordination logic. opBNB provides sub-second block times and transaction costs below $0.001, essential for the rapid message passing that real time swarm coordination demands. Agent state commitments are batched into Merkle roots and anchored to BSC at epoch boundaries for finality.</p>
+    <p class="body-text"><strong>BSC</strong> serves as the settlement layer. Token transfers, staking, governance, and slashing execute on BSC, inheriting its validator set security. The opBNB to BSC bridge uses the native optimistic bridge with a configurable challenge period, and a relayer network monitors both chains for state inconsistencies.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">2.2</span>Swarm Composition Engine</div>
+    <p class="body-text">The core primitive of SwarmBase is the swarm: a directed acyclic graph (DAG) of agent nodes connected by typed message channels. Each node is an autonomous agent with a defined capability, and the edges define the flow of data and control between agents.</p>
+    <p class="body-text">Swarm topologies are defined declaratively. A user specifies which agents participate, how they connect, what data flows between them, and what conditions trigger each stage of execution. The SwarmCoordinator contract (planned, Phase 4) will manage task routing, output aggregation, fault detection, and re-routing within the swarm. Swarms can be nested — a single node in a high level swarm can itself be a sub-swarm, resolving to a single output from the perspective of the parent graph.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">2.3</span>Agent Execution Environment</div>
+    <p class="body-text">Agents on SwarmBase operate within a managed execution environment at core.swarmbase.io. Each agent is configured with a defined capability set, resource allocation, and economic parameters. The agent lifecycle covers activation (entering the operational pool), execution (processing tasks and accruing rewards), and deactivation (withdrawing with staked tokens entering unbonding).</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">2.4</span>State Management</div>
+    <p class="body-text">Agent state is maintained in a hierarchical Merkle Patricia Trie on the opBNB execution layer. Each agent holds a local state partition that updates atomically per task execution. The global state root is committed to BSC at the end of each epoch via a propose-commit-reveal pattern: an agent proposes a state update with an attached verification proof, validators attest to its validity, and the update commits once two thirds of validator stake has confirmed.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">2.5</span>Smart Contracts</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Contract</th><th>Chain</th><th>Status</th><th>Function</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>SwarmToken.sol</td><td>BSC (TGE) / opBNB (pre-TGE test)</td><td><span class="badge-live">Live</span></td><td>BEP-20 token, supply management</td></tr>
+          <tr><td>SwarmCore.sol</td><td>opBNB Mainnet</td><td><span class="badge-live">Live</span></td><td>Engagement: registration, check-ins, referrals</td></tr>
+          <tr><td>SwarmBadge.sol</td><td>opBNB Mainnet</td><td><span class="badge-live">Live</span></td><td>Soulbound NFT badges</td></tr>
+          <tr><td>StakeVault.sol</td><td>BSC</td><td><span class="badge-planned">Phase 3</span></td><td>Staking, delegation, slashing escrow</td></tr>
+          <tr><td>GovernanceModule.sol</td><td>BSC</td><td><span class="badge-planned">Phase 3</span></td><td>Proposal lifecycle, stake-weighted voting</td></tr>
+          <tr><td>RewardDistributor.sol</td><td>opBNB</td><td><span class="badge-planned">Phase 3</span></td><td>Epoch reward calculation and distribution</td></tr>
+          <tr><td>SwarmCoordinator.sol</td><td>opBNB</td><td><span class="badge-planned">Phase 4</span></td><td>Swarm DAG management, task routing</td></tr>
+          <tr><td>VerifierGateway.sol</td><td>BSC</td><td><span class="badge-planned">Phase 4</span></td><td>TEE attestation and ZKML proof verification</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+
+  <!-- ═══════════════════ SECTION 3 ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-title">Verification Pipeline</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="callout-planned">
+    <div class="callout-planned-label">Planned — Phase 4</div>
+    <p>The verification pipeline described in this section is planned for Phase 4 delivery. No verification contracts are currently deployed.</p>
+  </div>
+  <p class="body-text">In a decentralized swarm environment, verification is not optional. When agent operators are independent, economically motivated participants, the protocol must provide cryptographic guarantees that agent outputs are genuine products of declared computations. Without this, the entire economic model collapses: there is no basis for rewarding legitimate work or penalizing fabrication.</p>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">3.1</span>TEE Attestation</div>
+    <p class="body-text">The primary verification mechanism uses Trusted Execution Environment attestation. Agent operators run inference workloads inside hardware enclaves (Intel SGX or AMD SEV) that produce signed attestation reports, cryptographically binding the agent's output to the specific model binary that executed inside a genuine, untampered enclave.</p>
+    <p class="body-text">The attestation flow: the operator initializes an enclave with the agent's model binary. The enclave generates a hardware signed report containing a measurement hash of the loaded code. This report is submitted to the VerifierGateway contract on BSC alongside the agent's output. The contract validates the hardware signature and marks the output as attested if verification passes. Only attested outputs are eligible for reward distribution.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">3.2</span>ZKML Proof System</div>
+    <p class="body-text">The next evolution of the verification pipeline targets zero knowledge machine learning (ZKML) proofs using PLONK arithmetization. Agent inference computations are expressed as arithmetic circuits, and a PLONK-based zk-SNARK prover generates succinct proofs that a given output was produced by a specific model on specific inputs, without revealing model weights or raw input data.</p>
+    <p class="body-text">Design targets include support for transformer architectures up to 7B parameters, GPU accelerated proving with target generation times under 30 seconds, and recursive proof composition enabling verification of entire multi-agent swarm workflows through a single aggregated proof. TEE and ZKML operate simultaneously — operators choose based on their infrastructure and security requirements.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">3.3</span>VRF Committee Selection</div>
+    <p class="body-text">Validator committee composition uses a Verifiable Random Function (VRF) mechanism based on threshold BLS signatures. A committee of validators collectively produces a random beacon each epoch, and the beacon output determines the next epoch's committee composition, task routing seeds, and probabilistic protocol parameters. No participant can predict or manipulate committee assignments.</p>
+  </div>
+
+  
+
+  <!-- ═══════════════════ SECTION 4 ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-title">Proof of Inference</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="callout-planned">
+    <div class="callout-planned-label">Planned — Phase 5</div>
+    <p>The Proof of Inference consensus layer is planned for Phase 5 delivery.</p>
+  </div>
+  <p class="body-text">SwarmBase introduces Proof of Inference (PoI) as its consensus primitive. PoI replaces arbitrary hash computation with useful inference work. An agent's contribution to the network is measured by the verifiable inference tasks it completes, weighted by task complexity and output quality.</p>
+  <p class="body-text">The PoI flow: a task is assigned to an agent via the swarm coordinator's routing schedule. The agent executes inference and produces an output bundle containing the result, a TEE attestation or ZKML proof, model identifier, input hash, and compute resource metrics. The output bundle is broadcast to the validator set. Validators independently verify the proof, evaluate output quality heuristics, and submit attestation votes. A task finalizes when two thirds of the validator stake has attested to its validity.</p>
+  <p class="body-text">PoI tracks contributions at the individual agent level while evaluating outcomes at the swarm level — ensuring rewards flow to agents that actually contributed to successful executions, not just to agents that processed the most volume.</p>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">4.1</span>Validator Requirements</div>
+    <p class="body-text">Validators stake SWARM tokens to participate in the attestation process. Minimum validator stake is 50,000 SWARM (governance adjustable). Validators earn epoch emission rewards proportional to their attestation participation rate. Validators that miss attestation windows receive a liveness penalty. Validators that submit provably false attestations are subject to slashing.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">4.2</span>Slashing Conditions</div>
+    <div class="table-wrap">
+      <table class="slash-table">
+        <thead>
+          <tr><th>Condition</th><th>Penalty</th><th>Detail</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>False attestation</td><td>5% stake</td><td>Attesting to a provably invalid proof</td></tr>
+          <tr><td>Double attestation</td><td>10% stake</td><td>Conflicting attestations for the same task in one epoch</td></tr>
+          <tr><td>Extended downtime</td><td>1% stake</td><td>Missing attestation windows for 3+ consecutive epochs</td></tr>
+          <tr><td>Proof fabrication</td><td>100% stake</td><td>Fabricated TEE attestation or forged proof</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="body-text" style="font-size:12px;color:#888;margin-top:-12px;">Slashed tokens split 25% to the reporting party, 75% to the protocol treasury.</p>
+  </div>
+
+  
+
+  <!-- ═══════════════════ SECTION 5 ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <span class="section-title">Tokenomics</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <div class="table-wrap">
+    <table class="specs-table">
+      <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Token</td><td>$SWARM</td></tr>
+        <tr><td>Standard</td><td>BEP-20 on BNB Smart Chain (BSC, ChainId 56)</td></tr>
+        <tr><td>Total Supply</td><td>1,000,000,000 SWARM — fixed, no mint function</td></tr>
+        <tr><td>Decimals</td><td>18</td></tr>
+        <tr><td>Burn</td><td>2% of all protocol fees burned permanently</td></tr>
+        <tr><td>Transfer Restrictions</td><td>None — no fee-on-transfer, no rebase, no proxy upgradeability, no blacklist</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">5.1</span>Allocation</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Allocation</th><th>Tokens</th><th>%</th><th>Vesting</th><th>Recipient</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Community Airdrop</td><td>200,000,000</td><td>20%</td><td>10% at TGE; 1mo cliff, 24mo linear on remaining 180M</td><td>Gnosis Safe</td></tr>
+          <tr><td>Team</td><td>150,000,000</td><td>15%</td><td>12mo cliff, 24mo linear</td><td>Team.Finance lock</td></tr>
+          <tr><td>Ecosystem</td><td>150,000,000</td><td>15%</td><td>None</td><td>Gnosis Safe</td></tr>
+          <tr><td>Marketing</td><td>120,000,000</td><td>12%</td><td>None</td><td>Gnosis Safe</td></tr>
+          <tr><td>Strategic Round</td><td>100,000,000</td><td>10%</td><td>12mo cliff, 12mo linear</td><td>Team.Finance lock</td></tr>
+          <tr><td>Treasury</td><td>80,000,000</td><td>8%</td><td>None</td><td>Gnosis Safe</td></tr>
+          <tr><td>Liquidity</td><td>80,000,000</td><td>8%</td><td>LP locked, 12mo minimum</td><td>DEX LP wallet (Team.Finance)</td></tr>
+          <tr><td>Reserve</td><td>70,000,000</td><td>7%</td><td>None</td><td>Gnosis Safe</td></tr>
+          <tr><td>Strategic Partners</td><td>50,000,000</td><td>5%</td><td>12mo cliff, 12mo linear</td><td>Team.Finance lock</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="body-text">Vesting is handled entirely by Team.Finance. There is no custom vesting contract. Three Team.Finance locks are created at TGE: Team (150M, 12mo cliff / 24mo linear), Strategic Round (100M, 12mo cliff / 12mo linear), and Strategic Partners (50M, 12mo cliff / 12mo linear). All other allocations are held in Gnosis Safe multisigs.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">5.2</span>Emissions</div>
+    <div class="callout-planned">
+      <div class="callout-planned-label">Planned — Phase 3</div>
+      <p>The epoch emission and halving schedule is a planned post-TGE mechanism. It does not exist in any currently deployed contract.</p>
+    </div>
+    <p class="body-text">Ecosystem emissions follow a halving decay. Initial annual emission: 87,500,000 SWARM (25% of the ecosystem allocation), halving every 12 months. Epoch length is 6 hours (1,460 epochs per year), yielding approximately 59,932 SWARM per epoch in year one. This front-loads incentives during the bootstrapping phase while the halving schedule ensures long term sustainability.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">5.3</span>Protocol Fees</div>
+    <p class="body-text">The protocol charges 3% on agent task execution payments: 2% is burned permanently, reducing circulating supply over time; 0.5% flows to the protocol treasury; and 0.5% is distributed to validators proportional to their attestation participation. As swarm activity grows, the burn rate accelerates, creating a structural relationship between network usage and token scarcity.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">5.4</span>Staking</div>
+    <div class="callout-planned">
+      <div class="callout-planned-label">Planned — Phase 3</div>
+      <p>StakeVault.sol will be deployed on BSC in Phase 3.</p>
+    </div>
+    <p class="body-text">SWARM holders stake in StakeVault to earn epoch emissions and fee distributions. Staked tokens are subject to a 14-day unbonding period. Delegated staking allows non-operator holders to delegate to a validator node and receive proportional rewards minus a configurable commission rate — ensuring all token holders, not just those running infrastructure, can participate in securing the network.</p>
+  </div>
+
+  
+
+  <!-- ═══════════════════ SECTION 6 ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <span class="section-title">Pre-TGE Community Engagement</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="callout-live">
+    <div class="callout-live-label">Live Now</div>
+    <p>The pre-TGE engagement system is live at core.swarmbase.io and core.swarmbase.io/points. All engagement is recorded on-chain via SwarmCore on opBNB Mainnet and publicly verifiable on opBNBscan.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">6.1</span>Earning Mechanics</div>
+    <p class="body-text"><strong>Registration (one-time).</strong> 50 points awarded on first registration. Each wallet may register once. Registrations with a referral link are recorded on-chain and permanently link the referee to the referrer.</p>
+    <p class="body-text"><strong>Daily check-in.</strong> Users may check in once every 24 hours. Points scale with the user's current streak: points = 25 × (100 + (streak − 1) × 7) / 100, where streak is capped at 30. This yields 25 points on day 1, rising to approximately 76 points at streak day 30. A streak resets to 1 if the user misses more than 48 hours between check-ins.</p>
+    <p class="body-text"><strong>Streak milestones.</strong> Bonus points are awarded at lifetime check-in thresholds: every 7th check-in = +150 points; every 30th check-in = +500 points; every 90th check-in = +1,500 points. If a check-in triggers multiple thresholds simultaneously, only the highest applies.</p>
+    <p class="body-text"><strong>Referral immediate reward.</strong> When a referred wallet registers, the referrer receives 10 points on-chain immediately.</p>
+    <p class="body-text"><strong>Referral quality milestones.</strong> Additional points flow to the referrer as each referee demonstrates sustained engagement:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Referee Check-In Threshold</th><th>Points Awarded to Referrer</th></tr></thead>
+        <tbody>
+          <tr><td>3 check-ins</td><td>+100 points</td></tr>
+          <tr><td>7 check-ins</td><td>+50 points</td></tr>
+          <tr><td>30 check-ins</td><td>+200 points</td></tr>
+          <tr><td>90 check-ins</td><td>+500 points</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="body-text" style="font-size:12px;color:#888;margin-top:-12px;">Maximum total referral reward per quality referral: 860 points (10 immediate + 850 across milestones).</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">6.2</span>Soulbound Badges</div>
+    <p class="body-text">SwarmBadge issues non-transferable (soulbound) ERC-1155 badges based on swarmScore thresholds. Badges are permanent proof of early participation. Minting a badge does not consume or modify swarmScore.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Badge</th><th>Requirement</th><th>Supply</th></tr></thead>
+        <tbody>
+          <tr><td>Pioneer</td><td>Available to any registered wallet</td><td>Unlimited</td></tr>
+          <tr><td>Builder</td><td>swarmScore ≥ 1,000 points</td><td>Unlimited</td></tr>
+          <tr><td>OG</td><td>swarmScore ≥ 5,000 points AND registered 14+ days</td><td>5,000 max</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">6.3</span>TGE Snapshot and Airdrop</div>
+    <p class="body-text">At TGE, a snapshot of all swarmScore values is taken from SwarmCore. Off-chain sybil filtering is applied; cluster analysis of referral trees, timing patterns, and funding sources is used to identify and exclude coordinated farming. The filtered score distribution is used to determine each wallet's allocation weight from the 200,000,000 community airdrop pool.</p>
+    <p class="body-text">Pre-TGE scores are one input into the community allocation; final distribution also accounts for post-TGE platform activity. 10% of the community allocation (20,000,000 SWARM) is unlocked at TGE. The remaining 180,000,000 SWARM is subject to a 1-month cliff followed by 24-month linear vesting. Points do not entitle any wallet to a specific token amount. Distribution is at the team's full discretion. There is no on-chain airdrop contract.</p>
+  </div>
+
+  
+
+  <!-- ═══════════════════ SECTION 7 ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <span class="section-title">Governance</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="callout-planned">
+    <div class="callout-planned-label">Planned — Phase 3</div>
+    <p>GovernanceModule.sol will be deployed on BSC in Phase 3.</p>
+  </div>
+  <p class="body-text"><strong>Parameter Governance</strong> covers numeric adjustments: stake thresholds, emission rates, fee percentages, and slashing penalties. These proposals require a simple majority (>50%) of participating stake-weighted votes with a minimum quorum of 10% of total staked supply.</p>
+  <p class="body-text"><strong>Structural Governance</strong> covers contract upgrades, treasury disbursements, and changes to the protocol's core architecture. These proposals require a supermajority (>66.7%) with a minimum quorum of 20% of total staked supply.</p>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">7.1</span>Proposal Flow</div>
+    <p class="body-text">A governance proposal progresses through four phases: <strong>Submission</strong> — proposer locks a 10,000 SWARM bond. <strong>Discussion</strong> — 7-day community review window. <strong>Voting</strong> — 5-day window; For, Against, or Abstain; Abstain counts toward quorum but not approval. <strong>Execution</strong> — 48-hour timelock; auto-executes on-chain if not vetoed.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title"><span class="subsection-num">7.2</span>Security Council</div>
+    <p class="body-text">A 5-of-9 multisig Security Council holds emergency powers during the protocol's initial maturation phase. The council can veto governance proposals within the 48-hour timelock window and execute emergency parameter changes in response to active exploits. Council authority is designed to be progressively reduced through governance votes, targeting full dissolution within 24 months of mainnet launch.</p>
+  </div>
+
+  <!-- ═══════════════════ SECTION 8 ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <span class="section-title">Security</span>
+    <span class="section-rule"></span>
+  </div>
+  <p class="body-text"><strong>Fabricated outputs.</strong> Malicious agents submitting fake inference results to earn rewards. Mitigated through TEE attestation and ZKML mathematical proofs (Phase 4/5). Both mechanisms make fabrication economically irrational: the cost of bypassing hardware or mathematical verification exceeds the potential reward.</p>
+  <p class="body-text"><strong>Validator collusion.</strong> Coordinated false attestations. Mitigated through stake-weighted random committee selection via VRF (Phase 5), economic penalties via slashing (up to 100% of stake for fabrication), and the two-thirds supermajority finalization threshold.</p>
+  <p class="body-text"><strong>Economic attacks.</strong> Stake manipulation, MEV extraction from task routing, and oracle manipulation. Mitigated through the 14-day unbonding period, deterministic task routing algorithms resistant to front running, and on-chain governance for parameter changes.</p>
+  <p class="body-text"><strong>Smart contract vulnerabilities.</strong> Reentrancy, integer overflow, access control failures. Addressed through mandatory third-party audits prior to TGE, formal verification of critical contract paths, and a tiered bug bounty program.</p>
+
+  <!-- ═══════════════════ SECTION 9 ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <span class="section-title">Token Contract Design</span>
+    <span class="section-rule"></span>
+  </div>
+  <p class="body-text">The SWARM token contract implements the full BEP-20 interface with no transfer restrictions, rebasing logic, or fee-on-transfer mechanics. The contract contains no proxy upgradeability patterns, no mint function beyond the initial supply creation, and no blacklist functions. Transfer events comply strictly with the BEP-20 specification to ensure full compatibility with block explorers, indexing infrastructure, and exchange integration pipelines.</p>
+  <p class="body-text">At TGE, 80,000,000 SWARM (8% of total supply) deploys to DEX liquidity pools on BSC. LP tokens are locked via Team.Finance for a minimum of 12 months.</p>
+
+  
+
+  <!-- ═══════════════════ SECTION 10: ROADMAP ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <span class="section-title">Roadmap</span>
+    <span class="section-rule"></span>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-tag">PHASE 1</span>
+      <span class="phase-name">Foundation</span>
+      <span class="phase-live-badge">Complete</span>
+      <span class="phase-date">Q1–Q2 2026</span>
+    </div>
+    <ul class="phase-items">
+      <li class="done">SwarmCore and SwarmBadge deployed on opBNB Mainnet</li>
+      <li class="done">On-chain registration, daily check-ins, streak scoring, and referral tracking live</li>
+      <li class="done">Soulbound NFT badges — Pioneer, Builder, and OG — live</li>
+      <li class="done">core.swarmbase.io and core.swarmbase.io/points live</li>
+      <li class="done">100-wallet on-chain simulation completed and verified on opBNBscan</li>
+      <li class="done">All contracts source-verified on opBNBscan</li>
+      <li class="done">Technical whitepaper published</li>
+      <li>Third-party smart contract audit — in progress</li>
+      <li>DappBay listing submission — post-audit</li>
+    </ul>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-tag">PHASE 2</span>
+      <span class="phase-name">Token Launch</span>
+      <span class="phase-date">Q2 2026</span>
+    </div>
+    <ul class="phase-items">
+      <li>$SWARM token deployed on BNB Smart Chain</li>
+      <li>Full 1B supply distributed on-chain in a single transaction</li>
+      <li>Team.Finance vesting locks created for Team, Strategic Round, and Strategic Partners</li>
+      <li>Gnosis Safe multisigs configured for all remaining allocations</li>
+      <li>PancakeSwap liquidity pool launched with LP tokens locked for minimum 12 months</li>
+      <li>OKX listing — CoinGecko and CoinMarketCap listings</li>
+      <li>Community airdrop distributed following TGE snapshot and off-chain sybil filtering</li>
+      <li>10% of community allocation unlocked at TGE; remaining 180M vests over 24 months</li>
+      <li>GitHub repository published post-audit — Bug bounty program launched</li>
+    </ul>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-tag">PHASE 3</span>
+      <span class="phase-name">Protocol Activation</span>
+      <span class="phase-date">Q3 2026</span>
+    </div>
+    <ul class="phase-items">
+      <li>StakeVault deployed on BSC — token staking, validator delegation, 14-day unbonding</li>
+      <li>GovernanceModule deployed — two-tier on-chain governance, Security Council active</li>
+      <li>Protocol fee mechanism activated — 3% on agent task execution, 2% burned permanently</li>
+      <li>Epoch emissions begin with annual halving schedule</li>
+      <li>Agent marketplace live on core.swarmbase.io with real on-chain compute tasks</li>
+      <li>RewardDistributor deployed for epoch-based reward distribution</li>
+      <li>Developer API launched for programmatic agent deployment and swarm composition</li>
+    </ul>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-tag">PHASE 4</span>
+      <span class="phase-name">Swarm Infrastructure</span>
+      <span class="phase-date">Q4 2026</span>
+    </div>
+    <ul class="phase-items">
+      <li>SwarmCoordinator deployed on opBNB — full swarm DAG management, fault-tolerant execution</li>
+      <li>Declarative swarm topology, nested sub-swarms, and automatic agent reassignment live</li>
+      <li>VerifierGateway deployed on BSC — TEE attestation pipeline live</li>
+      <li>Intel SGX and AMD SEV hardware enclave support — only attested outputs eligible for rewards</li>
+      <li>Developer SDK released — Grants program activated from 150M SWARM Ecosystem allocation</li>
+      <li>Strategic partnerships with AI infrastructure providers and GPU compute networks</li>
+    </ul>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-tag">PHASE 5</span>
+      <span class="phase-name">Full Decentralization</span>
+      <span class="phase-date">2027</span>
+    </div>
+    <ul class="phase-items">
+      <li>Full Proof of Inference consensus layer live — two-thirds validator supermajority finalization</li>
+      <li>PLONK-based zk-SNARK prover deployed — transformer model support up to 7B parameters</li>
+      <li>GPU-accelerated proving under 30 seconds — recursive proof composition for entire swarm graphs</li>
+      <li>VRF committee selection live via threshold BLS random beacon</li>
+      <li>Security Council authority progressively reduced through governance votes</li>
+      <li>Full DAO governance over all protocol parameters and treasury</li>
+      <li>Target: Security Council fully dissolved within 24 months of mainnet launch</li>
+    </ul>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Contract Deployment Reference</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Contract</th><th>Chain</th><th>Phase</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>SwarmToken.sol</td><td>opBNB (pre-TGE) / BSC (TGE)</td><td>1 / 2</td><td>BEP-20 protocol token</td></tr>
+          <tr><td>SwarmCore.sol</td><td>opBNB Mainnet</td><td>1</td><td>Engagement mechanics</td></tr>
+          <tr><td>SwarmBadge.sol</td><td>opBNB Mainnet</td><td>1</td><td>Soulbound NFT badges</td></tr>
+          <tr><td>StakeVault.sol</td><td>BSC</td><td>3</td><td>Staking and slashing</td></tr>
+          <tr><td>GovernanceModule.sol</td><td>BSC</td><td>3</td><td>On-chain governance</td></tr>
+          <tr><td>RewardDistributor.sol</td><td>opBNB</td><td>3</td><td>Epoch reward distribution</td></tr>
+          <tr><td>SwarmCoordinator.sol</td><td>opBNB</td><td>4</td><td>Swarm DAG management</td></tr>
+          <tr><td>VerifierGateway.sol</td><td>BSC</td><td>4</td><td>Proof verification dispatch</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+
+  <!-- ═══════════════════ SECTION 11 ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">11</span>
+    <span class="section-title">Technical Specifications</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="table-wrap">
+    <table class="specs-table">
+      <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Token Chain</td><td>BNB Smart Chain (BSC, ChainId 56)</td></tr>
+        <tr><td>Engagement Layer</td><td>opBNB Mainnet (ChainId 204)</td></tr>
+        <tr><td>Token Standard</td><td>BEP-20</td></tr>
+        <tr><td>Total Supply</td><td>1,000,000,000 SWARM — fixed, no mint function</td></tr>
+        <tr><td>Decimals</td><td>18</td></tr>
+        <tr><td>Transfer Restrictions</td><td>None</td></tr>
+        <tr><td>Consensus</td><td>Proof of Inference — Phase 5</td></tr>
+        <tr><td>Verification</td><td>TEE (Intel SGX / AMD SEV) + ZKML (PLONK zk-SNARKs) — Phase 4/5</td></tr>
+        <tr><td>Epoch Duration</td><td>6 hours — Phase 3+</td></tr>
+        <tr><td>Finality</td><td>2/3 validator stake attestation — Phase 5</td></tr>
+        <tr><td>Unbonding Period</td><td>14 days — Phase 3+</td></tr>
+        <tr><td>Min Validator Stake</td><td>50,000 SWARM — Phase 3+</td></tr>
+        <tr><td>Protocol Fee</td><td>3% (2% burn / 0.5% treasury / 0.5% validators)</td></tr>
+        <tr><td>Governance — Parameter</td><td>10% quorum, >50% approval — Phase 3+</td></tr>
+        <tr><td>Governance — Structural</td><td>20% quorum, >66.7% approval — Phase 3+</td></tr>
+        <tr><td>Security Council</td><td>5/9 multisig, 48h veto window</td></tr>
+        <tr><td>Vesting Infrastructure</td><td>Team.Finance locks + Gnosis Safe multisigs</td></tr>
+        <tr><td>Contracts</td><td>Solidity ^0.8.x, OpenZeppelin 4.9.x</td></tr>
+        <tr><td>Platform</td><td>core.swarmbase.io</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════ SECTION 12 ═══════════════════ -->
+  <div class="section-header">
+    <span class="section-num">12</span>
+    <span class="section-title">Risks and Disclaimers</span>
+    <span class="section-rule"></span>
+  </div>
+  <p class="body-text">SwarmBase is under active development. Participants should be aware of the following risk categories.</p>
+  <p class="body-text"><strong>Protocol risk.</strong> Smart contract bugs, economic design flaws, or governance failures could result in loss of tokens.</p>
+  <p class="body-text"><strong>Technology risk.</strong> Components of the verification pipeline, consensus layer, and governance system are under development and may not deliver as specified or on the stated timeline.</p>
+  <p class="body-text"><strong>Regulatory risk.</strong> The regulatory status of protocol tokens, staking, and decentralized agent systems varies by jurisdiction and is subject to change.</p>
+  <p class="body-text"><strong>Market risk.</strong> SWARM token value is determined entirely by market forces and is not guaranteed.</p>
+  <p class="body-text">This whitepaper does not constitute investment advice or an offer of securities. Nothing in this document should be construed as a promise of future performance, a guarantee of returns, or a commitment to deliver any specific feature or timeline.</p>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <div class="footer-brand"><span>SWARM</span>BASE — swarmbase.io</div>
+    <div class="footer-note">Technical Whitepaper v1.4 — April 2026</div>
+  </div>
+
+</div>
+</body>
+</html>
