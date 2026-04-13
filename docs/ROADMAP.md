@@ -8,7 +8,7 @@
 ### Community Engagement Layer
 - [x] SwarmCore deployed on opBNB Mainnet — on-chain registration, daily check-ins, streak scoring, referral tracking
 - [x] SwarmBadge deployed on opBNB Mainnet — soulbound Pioneer, Builder, and OG NFT badges
-- [x] SwarmToken deployed (pre-TGE test) on opBNB Mainnet
+- [x] SwarmToken pre-TGE deploy on opBNB Mainnet
 - [x] core.swarmbase.io platform live — agent deployment and community hub
 - [x] core.swarmbase.io/points live — real-time swarmScore leaderboard and engagement portal
 - [x] 100-wallet on-chain simulation completed — 4-tier referral tree, diverse engagement profiles, auditor-presentable transaction history
@@ -49,7 +49,7 @@
 ### Listings & Visibility
 - [ ] BscScan contract verification for SwarmToken on BSC
 - [ ] DappBay listing live
-- [ ] GitHub repository published (post-audit)
+- [x] GitHub repository published (github.com/Swarm-Base/swarmbase)
 - [ ] Bug bounty program launched
 
 ---
