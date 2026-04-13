@@ -79,7 +79,8 @@ $SWARM launches on BNB Smart Chain (BSC) at TGE.
 
 | | |
 |---|---|
-| App | [app.swarmbase.io](https://app.swarmbase.io) |
+| App | [core.swarmbase.io](https://core.swarmbase.io) |
+| Points Portal | [core.swarmbase.io/points](https://core.swarmbase.io/points) |
 | Website | [swarmbase.io](https://swarmbase.io) |
 | Whitepaper | [swarmbase.io/whitepaper](https://swarmbase.io/whitepaper) |
 | Twitter / X | [x.com/SwarmBase](https://x.com/SwarmBase) |
